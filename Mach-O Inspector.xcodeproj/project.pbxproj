@@ -1,0 +1,632 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		19D3470225EAA0E900D6EB99 /* Mach_O_InspectorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D3470125EAA0E900D6EB99 /* Mach_O_InspectorApp.swift */; };
+		19D3470425EAA0E900D6EB99 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D3470325EAA0E900D6EB99 /* ContentView.swift */; };
+		19D3470625EAA0EB00D6EB99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19D3470525EAA0EB00D6EB99 /* Assets.xcassets */; };
+		19D3470925EAA0EB00D6EB99 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19D3470825EAA0EB00D6EB99 /* Preview Assets.xcassets */; };
+		19D3471525EAA0EB00D6EB99 /* Mach_O_InspectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D3471425EAA0EB00D6EB99 /* Mach_O_InspectorTests.swift */; };
+		19D3472025EAA0EB00D6EB99 /* Mach_O_InspectorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D3471F25EAA0EB00D6EB99 /* Mach_O_InspectorUITests.swift */; };
+		19D3473225EAA11500D6EB99 /* Mach-O.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D3473125EAA11500D6EB99 /* Mach-O.swift */; };
+		19D3473E25EAADC400D6EB99 /* mach-o.c in Sources */ = {isa = PBXBuildFile; fileRef = 19D3473D25EAADC400D6EB99 /* mach-o.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		19D3471125EAA0EB00D6EB99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19D346F625EAA0E900D6EB99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19D346FD25EAA0E900D6EB99;
+			remoteInfo = "Mach-O Inspector";
+		};
+		19D3471C25EAA0EB00D6EB99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19D346F625EAA0E900D6EB99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19D346FD25EAA0E900D6EB99;
+			remoteInfo = "Mach-O Inspector";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		19D346FE25EAA0E900D6EB99 /* Mach-O Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mach-O Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19D3470125EAA0E900D6EB99 /* Mach_O_InspectorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mach_O_InspectorApp.swift; sourceTree = "<group>"; };
+		19D3470325EAA0E900D6EB99 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		19D3470525EAA0EB00D6EB99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		19D3470825EAA0EB00D6EB99 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		19D3470A25EAA0EB00D6EB99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19D3470B25EAA0EB00D6EB99 /* Mach_O_Inspector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mach_O_Inspector.entitlements; sourceTree = "<group>"; };
+		19D3471025EAA0EB00D6EB99 /* Mach-O InspectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mach-O InspectorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19D3471425EAA0EB00D6EB99 /* Mach_O_InspectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mach_O_InspectorTests.swift; sourceTree = "<group>"; };
+		19D3471625EAA0EB00D6EB99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19D3471B25EAA0EB00D6EB99 /* Mach-O InspectorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mach-O InspectorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19D3471F25EAA0EB00D6EB99 /* Mach_O_InspectorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mach_O_InspectorUITests.swift; sourceTree = "<group>"; };
+		19D3472125EAA0EB00D6EB99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19D3473125EAA11500D6EB99 /* Mach-O.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mach-O.swift"; sourceTree = "<group>"; };
+		19D3473B25EAADB600D6EB99 /* mach-o.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mach-o.h"; sourceTree = "<group>"; };
+		19D3473C25EAADC400D6EB99 /* Mach-O Inspector-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mach-O Inspector-Bridging-Header.h"; sourceTree = "<group>"; };
+		19D3473D25EAADC400D6EB99 /* mach-o.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "mach-o.c"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		19D346FB25EAA0E900D6EB99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19D3470D25EAA0EB00D6EB99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19D3471825EAA0EB00D6EB99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19D346F525EAA0E900D6EB99 = {
+			isa = PBXGroup;
+			children = (
+				19D3470025EAA0E900D6EB99 /* Mach-O Inspector */,
+				19D3471325EAA0EB00D6EB99 /* Mach-O InspectorTests */,
+				19D3471E25EAA0EB00D6EB99 /* Mach-O InspectorUITests */,
+				19D346FF25EAA0E900D6EB99 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		19D346FF25EAA0E900D6EB99 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19D346FE25EAA0E900D6EB99 /* Mach-O Inspector.app */,
+				19D3471025EAA0EB00D6EB99 /* Mach-O InspectorTests.xctest */,
+				19D3471B25EAA0EB00D6EB99 /* Mach-O InspectorUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		19D3470025EAA0E900D6EB99 /* Mach-O Inspector */ = {
+			isa = PBXGroup;
+			children = (
+				19D3473025EAA10500D6EB99 /* Parse */,
+				19D3470125EAA0E900D6EB99 /* Mach_O_InspectorApp.swift */,
+				19D3470325EAA0E900D6EB99 /* ContentView.swift */,
+				19D3470525EAA0EB00D6EB99 /* Assets.xcassets */,
+				19D3470A25EAA0EB00D6EB99 /* Info.plist */,
+				19D3470B25EAA0EB00D6EB99 /* Mach_O_Inspector.entitlements */,
+				19D3470725EAA0EB00D6EB99 /* Preview Content */,
+				19D3473A25EAAD9900D6EB99 /* C */,
+			);
+			path = "Mach-O Inspector";
+			sourceTree = "<group>";
+		};
+		19D3470725EAA0EB00D6EB99 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				19D3470825EAA0EB00D6EB99 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		19D3471325EAA0EB00D6EB99 /* Mach-O InspectorTests */ = {
+			isa = PBXGroup;
+			children = (
+				19D3471425EAA0EB00D6EB99 /* Mach_O_InspectorTests.swift */,
+				19D3471625EAA0EB00D6EB99 /* Info.plist */,
+			);
+			path = "Mach-O InspectorTests";
+			sourceTree = "<group>";
+		};
+		19D3471E25EAA0EB00D6EB99 /* Mach-O InspectorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				19D3471F25EAA0EB00D6EB99 /* Mach_O_InspectorUITests.swift */,
+				19D3472125EAA0EB00D6EB99 /* Info.plist */,
+			);
+			path = "Mach-O InspectorUITests";
+			sourceTree = "<group>";
+		};
+		19D3473025EAA10500D6EB99 /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				19D3473125EAA11500D6EB99 /* Mach-O.swift */,
+			);
+			path = Parse;
+			sourceTree = "<group>";
+		};
+		19D3473A25EAAD9900D6EB99 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				19D3473B25EAADB600D6EB99 /* mach-o.h */,
+				19D3473D25EAADC400D6EB99 /* mach-o.c */,
+				19D3473C25EAADC400D6EB99 /* Mach-O Inspector-Bridging-Header.h */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		19D346FD25EAA0E900D6EB99 /* Mach-O Inspector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19D3472425EAA0EB00D6EB99 /* Build configuration list for PBXNativeTarget "Mach-O Inspector" */;
+			buildPhases = (
+				19D346FA25EAA0E900D6EB99 /* Sources */,
+				19D346FB25EAA0E900D6EB99 /* Frameworks */,
+				19D346FC25EAA0E900D6EB99 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mach-O Inspector";
+			productName = "Mach-O Inspector";
+			productReference = 19D346FE25EAA0E900D6EB99 /* Mach-O Inspector.app */;
+			productType = "com.apple.product-type.application";
+		};
+		19D3470F25EAA0EB00D6EB99 /* Mach-O InspectorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19D3472725EAA0EB00D6EB99 /* Build configuration list for PBXNativeTarget "Mach-O InspectorTests" */;
+			buildPhases = (
+				19D3470C25EAA0EB00D6EB99 /* Sources */,
+				19D3470D25EAA0EB00D6EB99 /* Frameworks */,
+				19D3470E25EAA0EB00D6EB99 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				19D3471225EAA0EB00D6EB99 /* PBXTargetDependency */,
+			);
+			name = "Mach-O InspectorTests";
+			productName = "Mach-O InspectorTests";
+			productReference = 19D3471025EAA0EB00D6EB99 /* Mach-O InspectorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		19D3471A25EAA0EB00D6EB99 /* Mach-O InspectorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19D3472A25EAA0EB00D6EB99 /* Build configuration list for PBXNativeTarget "Mach-O InspectorUITests" */;
+			buildPhases = (
+				19D3471725EAA0EB00D6EB99 /* Sources */,
+				19D3471825EAA0EB00D6EB99 /* Frameworks */,
+				19D3471925EAA0EB00D6EB99 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				19D3471D25EAA0EB00D6EB99 /* PBXTargetDependency */,
+			);
+			name = "Mach-O InspectorUITests";
+			productName = "Mach-O InspectorUITests";
+			productReference = 19D3471B25EAA0EB00D6EB99 /* Mach-O InspectorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		19D346F625EAA0E900D6EB99 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					19D346FD25EAA0E900D6EB99 = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
+					19D3470F25EAA0EB00D6EB99 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 19D346FD25EAA0E900D6EB99;
+					};
+					19D3471A25EAA0EB00D6EB99 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 19D346FD25EAA0E900D6EB99;
+					};
+				};
+			};
+			buildConfigurationList = 19D346F925EAA0E900D6EB99 /* Build configuration list for PBXProject "Mach-O Inspector" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 19D346F525EAA0E900D6EB99;
+			productRefGroup = 19D346FF25EAA0E900D6EB99 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				19D346FD25EAA0E900D6EB99 /* Mach-O Inspector */,
+				19D3470F25EAA0EB00D6EB99 /* Mach-O InspectorTests */,
+				19D3471A25EAA0EB00D6EB99 /* Mach-O InspectorUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		19D346FC25EAA0E900D6EB99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19D3470925EAA0EB00D6EB99 /* Preview Assets.xcassets in Resources */,
+				19D3470625EAA0EB00D6EB99 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19D3470E25EAA0EB00D6EB99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19D3471925EAA0EB00D6EB99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		19D346FA25EAA0E900D6EB99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19D3470425EAA0E900D6EB99 /* ContentView.swift in Sources */,
+				19D3470225EAA0E900D6EB99 /* Mach_O_InspectorApp.swift in Sources */,
+				19D3473E25EAADC400D6EB99 /* mach-o.c in Sources */,
+				19D3473225EAA11500D6EB99 /* Mach-O.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19D3470C25EAA0EB00D6EB99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19D3471525EAA0EB00D6EB99 /* Mach_O_InspectorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19D3471725EAA0EB00D6EB99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19D3472025EAA0EB00D6EB99 /* Mach_O_InspectorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		19D3471225EAA0EB00D6EB99 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19D346FD25EAA0E900D6EB99 /* Mach-O Inspector */;
+			targetProxy = 19D3471125EAA0EB00D6EB99 /* PBXContainerItemProxy */;
+		};
+		19D3471D25EAA0EB00D6EB99 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19D346FD25EAA0E900D6EB99 /* Mach-O Inspector */;
+			targetProxy = 19D3471C25EAA0EB00D6EB99 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		19D3472225EAA0EB00D6EB99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Macho-O",
+					Inspector/C,
+				);
+			};
+			name = Debug;
+		};
+		19D3472325EAA0EB00D6EB99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Macho-O",
+					Inspector/C,
+				);
+			};
+			name = Release;
+		};
+		19D3472525EAA0EB00D6EB99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Mach-O Inspector/Mach_O_Inspector.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Mach-O Inspector/Preview Content\"";
+				DEVELOPMENT_TEAM = 9K6BXBHXKQ;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Mach-O Inspector/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaguilar.Mach-O-Inspector";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mach-O Inspector/C/Mach-O Inspector-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		19D3472625EAA0EB00D6EB99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Mach-O Inspector/Mach_O_Inspector.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Mach-O Inspector/Preview Content\"";
+				DEVELOPMENT_TEAM = 9K6BXBHXKQ;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Mach-O Inspector/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaguilar.Mach-O-Inspector";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mach-O Inspector/C/Mach-O Inspector-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		19D3472825EAA0EB00D6EB99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9K6BXBHXKQ;
+				INFOPLIST_FILE = "Mach-O InspectorTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaguilar.Mach-O-InspectorTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mach-O Inspector.app/Contents/MacOS/Mach-O Inspector";
+			};
+			name = Debug;
+		};
+		19D3472925EAA0EB00D6EB99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9K6BXBHXKQ;
+				INFOPLIST_FILE = "Mach-O InspectorTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaguilar.Mach-O-InspectorTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mach-O Inspector.app/Contents/MacOS/Mach-O Inspector";
+			};
+			name = Release;
+		};
+		19D3472B25EAA0EB00D6EB99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9K6BXBHXKQ;
+				INFOPLIST_FILE = "Mach-O InspectorUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaguilar.Mach-O-InspectorUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Mach-O Inspector";
+			};
+			name = Debug;
+		};
+		19D3472C25EAA0EB00D6EB99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9K6BXBHXKQ;
+				INFOPLIST_FILE = "Mach-O InspectorUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaguilar.Mach-O-InspectorUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Mach-O Inspector";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		19D346F925EAA0E900D6EB99 /* Build configuration list for PBXProject "Mach-O Inspector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19D3472225EAA0EB00D6EB99 /* Debug */,
+				19D3472325EAA0EB00D6EB99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19D3472425EAA0EB00D6EB99 /* Build configuration list for PBXNativeTarget "Mach-O Inspector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19D3472525EAA0EB00D6EB99 /* Debug */,
+				19D3472625EAA0EB00D6EB99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19D3472725EAA0EB00D6EB99 /* Build configuration list for PBXNativeTarget "Mach-O InspectorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19D3472825EAA0EB00D6EB99 /* Debug */,
+				19D3472925EAA0EB00D6EB99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19D3472A25EAA0EB00D6EB99 /* Build configuration list for PBXNativeTarget "Mach-O InspectorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19D3472B25EAA0EB00D6EB99 /* Debug */,
+				19D3472C25EAA0EB00D6EB99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 19D346F625EAA0E900D6EB99 /* Project object */;
+}

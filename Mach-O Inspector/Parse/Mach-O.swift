@@ -293,8 +293,12 @@ class Segment64LoadCommand: LoadCommand {
         let vmsize = cmdPointer.load(fromByteOffset: 32, as: UInt64.self)
         let fileoff = cmdPointer.load(fromByteOffset: 40, as: UInt64.self)
         let filesize = cmdPointer.load(fromByteOffset: 48, as: UInt64.self)
+        let maxprot = cmdPointer.load(fromByteOffset: 56, as: UInt32.self)
+        let initprot = cmdPointer.load(fromByteOffset: 60, as: UInt32.self)
+        let nsects = cmdPointer.load(fromByteOffset: 64, as: UInt32.self)
+        let flags = cmdPointer.load(fromByteOffset: 68, as: UInt32.self)
 
-        return Segment64LoadCommand(cmd: .LC_SEGMENT_64, cmdsize: cmdsize, segname: segname, vmaddr: vmaddr, vmsize: vmsize, fileoff: fileoff, filesize: filesize, maxprot: 0, initprot: 0, nsects: 0, flags: 0)
+        return Segment64LoadCommand(cmd: .LC_SEGMENT_64, cmdsize: cmdsize, segname: segname, vmaddr: vmaddr, vmsize: vmsize, fileoff: fileoff, filesize: filesize, maxprot: maxprot, initprot: initprot, nsects: nsects, flags: flags)
     }
 }
 

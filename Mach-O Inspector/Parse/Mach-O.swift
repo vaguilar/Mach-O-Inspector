@@ -79,7 +79,7 @@ enum LoadCommandType: UInt32 {
     case LC_SUB_LIBRARY = 0x15
     case LC_TWOLEVEL_HINTS = 0x16
     case LC_PREBIND_CKSUM = 0x17
-
+    case LC_LOAD_WEAK_DYLIB = 0x80000018
     case LC_SEGMENT_64 = 0x19
     case LC_ROUTINES_64 = 0x1a
     case LC_UUID = 0x1b
@@ -149,6 +149,9 @@ class FatMachO {
                 let machO = try MachO.fromPointer(machHeaderPointer)
                 machoList.append(machO)
             }
+        } else {
+            let machO = try MachO.fromPointer(fatMachOPointer)
+            machoList.append(machO)
         }
 
         return FatMachO(machoList)

@@ -251,6 +251,10 @@ class LoadCommand: Identifiable {
         switch cmd {
         case .LC_SEGMENT_64:
             return try Segment64LoadCommand.fromPointer2(cmdPointer)
+        case .LC_UUID:
+            return try UUIDLoadCommand.fromPointer2(cmdPointer)
+        case .LC_LOAD_DYLIB, .LC_LOAD_WEAK_DYLIB, .LC_REEXPORT_DYLIB:
+            return try LoadDylibLoadCommand.fromPointer2(cmdPointer)
         default:
             return LoadCommand(cmd: cmd, cmdsize: cmdsize)
         }
@@ -290,7 +294,50 @@ class Segment64LoadCommand: LoadCommand {
         let fileoff = cmdPointer.load(fromByteOffset: 40, as: UInt64.self)
         let filesize = cmdPointer.load(fromByteOffset: 48, as: UInt64.self)
 
-
         return Segment64LoadCommand(cmd: .LC_SEGMENT_64, cmdsize: cmdsize, segname: segname, vmaddr: vmaddr, vmsize: vmsize, fileoff: fileoff, filesize: filesize, maxprot: 0, initprot: 0, nsects: 0, flags: 0)
+    }
+}
+
+class UUIDLoadCommand: LoadCommand {
+    let uuid: UUID
+
+    init(cmd: LoadCommandType, cmdsize: UInt32, uuid: UUID) {
+        self.uuid = uuid
+        super.init(cmd: cmd, cmdsize: cmdsize)
+    }
+
+    static func fromPointer2(_ cmdPointer: UnsafeRawPointer) throws -> UUIDLoadCommand {
+        let cmdsize = cmdPointer.load(fromByteOffset: 4, as: UInt32.self)
+        let uuid = UUID(uuid: (cmdPointer + 8).assumingMemoryBound(to: uuid_t.self).pointee)
+
+        return UUIDLoadCommand(cmd: .LC_UUID, cmdsize: cmdsize, uuid: uuid)
+    }
+}
+
+class LoadDylibLoadCommand: LoadCommand {
+    let path: String
+    let timestamp: UInt32
+    let currentVersion: UInt32
+    let compatibilityVersion: UInt32
+
+    init(cmd: LoadCommandType, cmdsize: UInt32, path: String) {
+        self.path = path
+        self.timestamp = 0
+        self.currentVersion = 0
+        self.compatibilityVersion = 0
+        super.init(cmd: cmd, cmdsize: cmdsize)
+    }
+
+    static func fromPointer2(_ cmdPointer: UnsafeRawPointer) throws -> LoadDylibLoadCommand {
+        let cmdValue = cmdPointer.load(fromByteOffset: 0, as: UInt32.self)
+        let cmdsize = cmdPointer.load(fromByteOffset: 4, as: UInt32.self)
+        let pathOffset = Int(cmdPointer.load(fromByteOffset: 8, as: UInt32.self))
+        let path = String(cString: (cmdPointer + pathOffset).assumingMemoryBound(to: UInt8.self))
+
+        guard let cmd = LoadCommandType(rawValue: cmdValue) else {
+            throw MachOParseError.unknownLoadCommand(value: cmdValue)
+        }
+
+        return LoadDylibLoadCommand(cmd: cmd, cmdsize: cmdsize, path: path)
     }
 }

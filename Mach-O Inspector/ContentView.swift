@@ -43,15 +43,21 @@ struct LoadCommandView: View {
 
     var body: some View {
         VStack {
+            Text(String(describing: lc.cmd))
+            Text(String(describing: lc.cmdsize) + " bytes")
             if let lc = lc as? Segment64LoadCommand {
-                Text(String(describing: lc.cmd))
-                Text(String(describing: lc.cmdsize) + " bytes")
                 Text(String(describing: lc.segname))
                 Text("VM Address " + String(describing: lc.vmaddr))
                 Text("VM Size " + String(describing: lc.vmsize))
+
+            } else if let lc = lc as? UUIDLoadCommand {
+                Text(String(describing: lc.uuid))
+
+            } else if let lc = lc as? LoadDylibLoadCommand {
+                Text(String(describing: lc.path))
+
             } else {
-                Text(String(describing: lc.cmd))
-                Text(String(describing: lc.cmdsize) + " bytes")
+                //
             }
         }
     }

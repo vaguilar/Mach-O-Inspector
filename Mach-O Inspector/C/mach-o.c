@@ -27,6 +27,10 @@ void macho_get_mach_header(const void* macho_ptr, struct mach_header* mach_heade
     memcpy(mach_header_ptr, macho_ptr, sizeof(struct mach_header));
 }
 
+void macho_get_load_command(const void* macho_ptr, struct load_command* load_command_ptr) {
+    memcpy(load_command_ptr, macho_ptr, sizeof(struct load_command));
+}
+
 uint32_t is_fat(const void* ptr) {
     const struct fat_header* header = ptr;
     return header->magic == FAT_MAGIC || header->magic == FAT_CIGAM;

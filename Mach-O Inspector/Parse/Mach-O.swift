@@ -212,9 +212,25 @@ struct MachO: Hashable, Identifiable {
 
         return MachO(cpu: cpu, cpusub: cpusub, filetype: filetype, cmds: cmds, flags: machHeader.flags)
     }
+
+    static func fromURL(_ url: URL) throws -> MachO {
+        guard let data = try? Data(contentsOf: url) else {
+            throw MachOParseError.unableToOpenFile
+        }
+
+        return try data.withUnsafeBytes { try MachO.fromPointer($0.baseAddress!) }
+    }
+
+    static func == (lhs: MachO, rhs: MachO) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
 }
 
-struct LoadCommand: Hashable, Identifiable {
+class LoadCommand: Identifiable {
     let id = UUID()
     let cmd: LoadCommandType
     let cmdsize: UInt32
@@ -231,6 +247,50 @@ struct LoadCommand: Hashable, Identifiable {
         guard let cmd = LoadCommandType(rawValue: cmdValue) else {
             throw MachOParseError.unknownLoadCommand(value: cmdValue)
         }
-        return LoadCommand(cmd: cmd, cmdsize: cmdsize)
+
+        switch cmd {
+        case .LC_SEGMENT_64:
+            return try Segment64LoadCommand.fromPointer2(cmdPointer)
+        default:
+            return LoadCommand(cmd: cmd, cmdsize: cmdsize)
+        }
+    }
+}
+
+class Segment64LoadCommand: LoadCommand {
+    let segname: String
+    let vmaddr: UInt64
+    let vmsize: UInt64
+    let fileoff: UInt64
+    let filesize: UInt64
+    let maxprot: UInt32
+    let initprot: UInt32
+    let nsects: UInt32
+    let flags: UInt32
+
+    init(cmd: LoadCommandType, cmdsize: UInt32, segname: String, vmaddr: UInt64, vmsize: UInt64, fileoff: UInt64, filesize: UInt64, maxprot: UInt32, initprot: UInt32, nsects: UInt32, flags: UInt32) {
+        self.segname = segname
+        self.vmaddr = vmaddr
+        self.vmsize = vmsize
+        self.fileoff = fileoff
+        self.filesize = filesize
+        self.maxprot = maxprot
+        self.initprot = initprot
+        self.nsects = nsects
+        self.flags = flags
+        super.init(cmd: cmd, cmdsize: cmdsize)
+    }
+
+    static func fromPointer2(_ cmdPointer: UnsafeRawPointer) throws -> Segment64LoadCommand {
+        let cmdsize = cmdPointer.load(fromByteOffset: 4, as: UInt32.self)
+        let segname = String(cString: cmdPointer.advanced(by: 8).assumingMemoryBound(to: UInt8.self))
+
+        let vmaddr = cmdPointer.load(fromByteOffset: 24, as: UInt64.self)
+        let vmsize = cmdPointer.load(fromByteOffset: 32, as: UInt64.self)
+        let fileoff = cmdPointer.load(fromByteOffset: 40, as: UInt64.self)
+        let filesize = cmdPointer.load(fromByteOffset: 48, as: UInt64.self)
+
+
+        return Segment64LoadCommand(cmd: .LC_SEGMENT_64, cmdsize: cmdsize, segname: segname, vmaddr: vmaddr, vmsize: vmsize, fileoff: fileoff, filesize: filesize, maxprot: 0, initprot: 0, nsects: 0, flags: 0)
     }
 }

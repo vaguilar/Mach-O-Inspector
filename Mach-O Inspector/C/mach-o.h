@@ -21,6 +21,8 @@ void macho_fat_header(const void* macho_ptr, struct fat_header* fat_header_ptr);
 
 void macho_get_mach_header(const void* macho_ptr, struct mach_header* mach_header_ptr);
 
+void macho_get_load_command(const void* macho_ptr, struct load_command* load_command_ptr);
+
 uint32_t is_fat(const void* macho_ptr);
 
 #endif /* mach_o_h */

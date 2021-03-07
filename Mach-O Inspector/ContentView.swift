@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var machoList: [MachO] = []
 
     init() {
-        let url = URL(fileURLWithPath: "/bin/ls")
+        let url = Bundle.main.executableURL!
         do {
             let fatMacho = try FatMachO.fromURL(url)
             self._machoList = State(initialValue: fatMacho.machoList)
@@ -43,8 +43,16 @@ struct LoadCommandView: View {
 
     var body: some View {
         VStack {
-            Text(String(describing: lc.cmd))
-            Text(String(describing: lc.cmdsize) + " bytes")
+            if let lc = lc as? Segment64LoadCommand {
+                Text(String(describing: lc.cmd))
+                Text(String(describing: lc.cmdsize) + " bytes")
+                Text(String(describing: lc.segname))
+                Text("VM Address " + String(describing: lc.vmaddr))
+                Text("VM Size " + String(describing: lc.vmsize))
+            } else {
+                Text(String(describing: lc.cmd))
+                Text(String(describing: lc.cmdsize) + " bytes")
+            }
         }
     }
 }

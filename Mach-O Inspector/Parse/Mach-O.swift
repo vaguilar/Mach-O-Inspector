@@ -7,118 +7,6 @@
 
 import Foundation
 
-enum CPUType: Int32 {
-    case CPU_TYPE_ANY = -1
-    case CPU_TYPE_VAX = 1
-    case CPU_TYPE_ROMP = 2
-    case CPU_TYPE_NS32032 = 4
-    case CPU_TYPE_NS32332 = 5
-    case CPU_TYPE_MC680x0 = 6
-    case CPU_TYPE_I386 = 7
-    case CPU_TYPE_X86_64 = 16777223
-    case CPU_TYPE_MIPS = 8
-    case CPU_TYPE_NS32532 = 9
-    case CPU_TYPE_HPPA = 11
-    case CPU_TYPE_ARM = 12
-    case CPU_TYPE_MC88000 = 13
-    case CPU_TYPE_SPARC = 14
-    case CPU_TYPE_I860 = 15
-    case CPU_TYPE_I860_LITTLE = 16
-    case CPU_TYPE_RS6000 = 17
-    case CPU_TYPE_POWERPC = 18
-    case CPU_TYPE_POWERPC64 = 16777232
-    case CPU_TYPE_VEO = 255
-    case CPU_TYPE_ARM64 = 16777228
-}
-
-enum CPUSubType: Int32 {
-    case CPU_SUBTYPE_ARM64_ALL = 0
-    case CPU_SUBTYPE_ARM64_V8 = 1
-    case CPU_SUBTYPE_ARM64E = 2
-    case CPU_SUBTYPE_X86_ALL = 3
-    case CPU_SUBTYPE_X86_ARCH1 = 4
-    case CPU_SUBTYPE_ARM_V7 = 9
-    case CPU_SUBTYPE_ARM_V7S = 11
-    case CPU_SUBTYPE_ARM_V7K = 12
-
-    case CPU_SUBTYPE_MASK = -2147483648
-}
-
-enum FileType: UInt32 {
-    case MH_OBJECT = 1
-    case MH_EXECUTE = 2
-    case MH_FVMLIB = 3
-    case MH_CORE = 4
-    case MH_PRELOAD = 5
-    case MH_DYLIB = 6
-    case MH_DYLINKER = 7
-    case MH_BUNDLE = 8
-}
-
-enum LoadCommandType: UInt32 {
-    case LC_SEGMENT = 0x1
-    case LC_SYMTAB = 0x2
-    case LC_SYMSEG = 0x3
-    case LC_THREAD = 0x4
-    case LC_UNIXTHREAD = 0x5
-    case LC_LOADFVMLIB = 0x6
-    case LC_IDFVMLIB = 0x7
-    case LC_IDENT = 0x8
-    case LC_FVMFILE = 0x9
-    case LC_PREPAGE = 0xa
-    case LC_DYSYMTAB = 0xb
-    case LC_LOAD_DYLIB = 0xc
-    case LC_ID_DYLIB = 0xd
-    case LC_LOAD_DYLINKER = 0xe
-    case LC_ID_DYLINKER = 0xf
-    case LC_PREBOUND_DYLIB = 0x10
-    case LC_ROUTINES = 0x11
-    case LC_SUB_FRAMEWORK = 0x12
-    case LC_SUB_UMBRELLA = 0x13
-    case LC_SUB_CLIENT = 0x14
-    case LC_SUB_LIBRARY = 0x15
-    case LC_TWOLEVEL_HINTS = 0x16
-    case LC_PREBIND_CKSUM = 0x17
-    case LC_LOAD_WEAK_DYLIB = 0x80000018
-    case LC_SEGMENT_64 = 0x19
-    case LC_ROUTINES_64 = 0x1a
-    case LC_UUID = 0x1b
-    case LC_RPATH = 0x8000001c
-    case LC_CODE_SIGNATURE = 0x1d
-    case LC_SEGMENT_SPLIT_INFO = 0x1e
-    case LC_REEXPORT_DYLIB = 0x8000001f
-    case LC_LAZY_LOAD_DYLIB = 0x20
-    case LC_ENCRYPTION_INFO = 0x21
-    case LC_DYLD_INFO = 0x22
-    case LC_DYLD_INFO_ONLY = 0x80000022
-    case LC_LOAD_UPWARD_DYLIB = 0x80000023
-    case LC_VERSION_MIN_MACOSX = 0x80000024
-    case LC_VERSION_MIN_IPHONEOS = 0x25
-    case LC_FUNCTION_STARTS = 0x26
-    case LC_DYLD_ENVIRONMENT = 0x27
-    case LC_MAIN = 0x80000028
-    case LC_DATA_IN_CODE = 0x29
-    case LC_SOURCE_VERSION = 0x2A
-    case LC_DYLIB_CODE_SIGN_DRS = 0x2B
-    case LC_ENCRYPTION_INFO_64 = 0x2C
-    case LC_LINKER_OPTION = 0x2D
-    case LC_LINKER_OPTIMIZATION_HINT = 0x2E
-    case LC_VERSION_MIN_TVOS = 0x2F
-    case LC_VERSION_MIN_WATCHOS = 0x30
-    case LC_NOTE = 0x31
-    case LC_BUILD_VERSION = 0x32
-    case LC_DYLD_EXPORTS_TRIE = 0x80000033
-    case LC_DYLD_CHAINED_FIXUPS = 0x80000034
-}
-
-enum MachOParseError: Error {
-    case unableToOpenFile
-    case unknownCPU(value: Int32)
-    case unknownCPUSub(value: Int32)
-    case unknownFileType(value: UInt32)
-    case unknownLoadCommand(value: UInt32)
-}
-
 class FatMachO {
     let machoList: [MachO]
 
@@ -131,22 +19,13 @@ class FatMachO {
         let isFat = is_fat(fatMachOPointer) == 1
 
         if isFat {
-            var buffer = Data(capacity: 32)
-            let fatHeader = buffer.withUnsafeMutableBytes { (fatHeaderRawPointer) -> fat_header in
-                let fatHeaderPointer = fatHeaderRawPointer.bindMemory(to: fat_header.self).baseAddress
-                macho_fat_header(fatMachOPointer, fatHeaderPointer)
-                return fatHeaderPointer!.pointee
-            }
+            let fatHeader = FatHeader.parse(fatMachOPointer)
 
-            for i in 0..<fatHeader.nfat_arch {
-                let fatArch = buffer.withUnsafeMutableBytes { (fatArchRawPointer) -> fat_arch in
-                    let fatArchPointer = fatArchRawPointer.bindMemory(to: fat_arch.self).baseAddress
-                    macho_get_fat_arch(fatMachOPointer, Int(i), fatArchPointer)
-                    return fatArchPointer!.pointee
-                }
-
-                let machHeaderPointer = fatMachOPointer.advanced(by: Int(fatArch.offset))
-                let machO = try MachO.fromPointer(machHeaderPointer)
+            for i in 0..<Int(fatHeader.archCount) {
+                let fatArchPointer = fatMachOPointer + MemoryLayout<FatHeader>.stride + (MemoryLayout<FatArch>.stride * i)
+                let fatArch = FatArch.parse(fatArchPointer)
+                let machoPointer = fatMachOPointer + Int(fatArch.offset)
+                let machO = try MachO.fromPointer(machoPointer)
                 machoList.append(machO)
             }
         } else {
@@ -171,46 +50,50 @@ struct MachO: Hashable, Identifiable {
     let cpu: CPUType
     let cpusub: CPUSubType
     let filetype: FileType
-    let cmds: [LoadCommand]
+    let loadCommands: [LoadCommand]
     let flags: UInt32
+    let displayLists: [[(String, String)]]
 
-    init(cpu: CPUType, cpusub: CPUSubType, filetype: FileType, cmds: [LoadCommand], flags: UInt32) {
+    init(cpu: CPUType, cpusub: CPUSubType, filetype: FileType, loadCommands: [LoadCommand], flags: UInt32, displayLists: [[(String, String)]]) {
         self.cpu = cpu
         self.cpusub = cpusub
         self.filetype = filetype
-        self.cmds = cmds
+        self.loadCommands = loadCommands
         self.flags = flags
+        self.displayLists = displayLists
     }
 
     static func fromPointer(_ machOPointer: UnsafeRawPointer) throws -> MachO {
-        var buffer = Data(capacity: 64)
-        let machHeader = buffer.withUnsafeMutableBytes { (machHeaderRawPointer) -> mach_header in
-            let machHeaderPointer = machHeaderRawPointer.bindMemory(to: mach_header.self).baseAddress
-            macho_get_mach_header(machOPointer, machHeaderPointer)
-            return machHeaderPointer!.pointee
+        let machHeader = MachHeader.parse(machOPointer)
+        var loadCommandPointer = machOPointer + 32
+        var loadCommands: [LoadCommand] = []
+        var displayLists: [[(String, String)]] = []
+
+        // is 64-bit?
+        if machHeader.cpuType & CPUType.CPU_TYPE_64.rawValue != 0 {
+            loadCommandPointer = machOPointer + 32
         }
 
-        var cmds: [LoadCommand] = []
-        var cmdPointer = machOPointer.advanced(by: 32)
-        for _ in 0..<machHeader.ncmds {
-            let lc = try LoadCommand.fromPointer(cmdPointer)
-            cmds.append(lc)
-            cmdPointer = cmdPointer.advanced(by: Int(lc.cmdsize))
+        for _ in 0..<machHeader.commandsCount {
+            let loadCommand = LoadCommand.parse(loadCommandPointer)
+            loadCommands.append(loadCommand)
+            displayLists.append(loadCommand.toDisplayList())
+            loadCommandPointer += Int(loadCommand.size)
         }
 
-        guard let cpu = CPUType(rawValue: machHeader.cputype) else {
-            throw MachOParseError.unknownCPU(value: machHeader.cputype)
+        guard let cpu = CPUType(rawValue: machHeader.cpuType) else {
+            throw MachOParseError.unknownCPU(value: machHeader.cpuType)
         }
 
-        guard let cpusub = CPUSubType(rawValue: machHeader.cpusubtype & ~CPUSubType.CPU_SUBTYPE_MASK.rawValue) else {
-            throw MachOParseError.unknownCPUSub(value: machHeader.cpusubtype)
+        guard let cpusub = CPUSubType(rawValue: machHeader.cpuSubtype & ~CPUSubType.CPU_SUBTYPE_MASK.rawValue) else {
+            throw MachOParseError.unknownCPUSub(value: machHeader.cpuSubtype)
         }
 
-        guard let filetype = FileType(rawValue: machHeader.filetype) else {
-            throw MachOParseError.unknownFileType(value: machHeader.filetype)
+        guard let filetype = FileType(rawValue: machHeader.fileType) else {
+            throw MachOParseError.unknownFileType(value: machHeader.fileType)
         }
 
-        return MachO(cpu: cpu, cpusub: cpusub, filetype: filetype, cmds: cmds, flags: machHeader.flags)
+        return MachO(cpu: cpu, cpusub: cpusub, filetype: filetype, loadCommands: loadCommands, flags: machHeader.flags, displayLists: displayLists)
     }
 
     static func fromURL(_ url: URL) throws -> MachO {
@@ -230,118 +113,77 @@ struct MachO: Hashable, Identifiable {
     }
 }
 
-class LoadCommand: Identifiable {
-    let id = UUID()
-    let cmd: LoadCommandType
-    let cmdsize: UInt32
-
-    init(cmd: LoadCommandType, cmdsize: UInt32) {
-        self.cmd = cmd
-        self.cmdsize = cmdsize
-    }
-
-    static func fromPointer(_ cmdPointer: UnsafeRawPointer) throws -> LoadCommand {
-        let cmdValue = cmdPointer.load(fromByteOffset: 0, as: UInt32.self)
-        let cmdsize = cmdPointer.load(fromByteOffset: 4, as: UInt32.self)
-
-        guard let cmd = LoadCommandType(rawValue: cmdValue) else {
-            throw MachOParseError.unknownLoadCommand(value: cmdValue)
-        }
-
-        switch cmd {
+extension LoadCommand {
+    func toDisplayList() -> [(String, String)] {
+        let loadCommand = LoadCommandType(rawValue: self.command)
+        var result: [(String, String)] = [
+            ("Command", (loadCommand != nil) ? String(describing: loadCommand!) : "???"),
+            ("Size", String(self.size)),
+        ]
+        switch loadCommand {
         case .LC_SEGMENT_64:
-            return try Segment64LoadCommand.fromPointer2(cmdPointer)
+            let lc = Segment64LoadCommand.parse(self.rawPointer)
+            result.append(contentsOf: [
+                ("Segment Name", lc.segmentName),
+                ("File Offset", String(format: "0x%X", lc.fileOffset)),
+                ("File Size", String(format: "0x%X", lc.fileSize)),
+                ("VM Address", String(format: "0x%X", lc.vmAddress)),
+                ("VM Size", String(format: "0x%X", lc.vmSize)),
+            ])
+        case .LC_DYLD_INFO, .LC_DYLD_INFO_ONLY:
+            let lc = DyLdInfoLoadCommand.parse(self.rawPointer)
+            result.append(contentsOf: [
+                ("Rebase Offset", String(format: "0x%X", lc.rebaseOffset)),
+                ("Rebase Size", String(format: "0x%X", lc.rebaseSize)),
+                ("Bind Offset", String(format: "0x%X", lc.bindOffset)),
+                ("Bind Size", String(format: "0x%X", lc.bindSize)),
+                ("Lazy Bind Offset", String(format: "0x%X", lc.lazyBindOffset)),
+                ("Lazy Bind Size", String(format: "0x%X", lc.lazyBindSize)),
+                ("Weak Bind Offset", String(format: "0x%X", lc.weakBindOffset)),
+                ("Weak Bind Size", String(format: "0x%X", lc.weakBindSize)),
+                ("Export Offset", String(format: "0x%X", lc.exportOffset)),
+                ("Export Size", String(format: "0x%X", lc.exportSize)),
+            ])
         case .LC_UUID:
-            return try UUIDLoadCommand.fromPointer2(cmdPointer)
-        case .LC_LOAD_DYLIB, .LC_LOAD_WEAK_DYLIB, .LC_REEXPORT_DYLIB:
-            return try LoadDylibLoadCommand.fromPointer2(cmdPointer)
+            let lc = UUIDLoadCommand.parse(self.rawPointer)
+            result.append(contentsOf: [
+                ("UUID", lc.uuid.uuidString),
+            ])
+        case .LC_LOAD_DYLIB, .LC_LOAD_WEAK_DYLIB, .LC_RPATH:
+            let lc = LoadDyLibLoadCommand.parse(self.rawPointer)
+            result.append(contentsOf: [
+                ("Path", lc.pathString()),
+            ])
+        case .LC_LOAD_DYLINKER:
+            let lc = LoadDyLinkerLoadCommand.parse(self.rawPointer)
+            result.append(contentsOf: [
+                ("Path", lc.pathString()),
+            ])
+        case .LC_MAIN:
+            let lc = EntryPointLoadCommand.parse(self.rawPointer)
+            result.append(contentsOf: [
+                ("Entry Offset", String(format: "0x%X", lc.entryOffset)),
+                ("Stack Size", String(format: "0x%X", lc.stackSize)),
+            ])
         default:
-            return LoadCommand(cmd: cmd, cmdsize: cmdsize)
-        }
-    }
-}
-
-class Segment64LoadCommand: LoadCommand {
-    let segname: String
-    let vmaddr: UInt64
-    let vmsize: UInt64
-    let fileoff: UInt64
-    let filesize: UInt64
-    let maxprot: UInt32
-    let initprot: UInt32
-    let nsects: UInt32
-    let flags: UInt32
-
-    init(cmd: LoadCommandType, cmdsize: UInt32, segname: String, vmaddr: UInt64, vmsize: UInt64, fileoff: UInt64, filesize: UInt64, maxprot: UInt32, initprot: UInt32, nsects: UInt32, flags: UInt32) {
-        self.segname = segname
-        self.vmaddr = vmaddr
-        self.vmsize = vmsize
-        self.fileoff = fileoff
-        self.filesize = filesize
-        self.maxprot = maxprot
-        self.initprot = initprot
-        self.nsects = nsects
-        self.flags = flags
-        super.init(cmd: cmd, cmdsize: cmdsize)
-    }
-
-    static func fromPointer2(_ cmdPointer: UnsafeRawPointer) throws -> Segment64LoadCommand {
-        let cmdsize = cmdPointer.load(fromByteOffset: 4, as: UInt32.self)
-        let segname = String(cString: cmdPointer.advanced(by: 8).assumingMemoryBound(to: UInt8.self))
-
-        let vmaddr = cmdPointer.load(fromByteOffset: 24, as: UInt64.self)
-        let vmsize = cmdPointer.load(fromByteOffset: 32, as: UInt64.self)
-        let fileoff = cmdPointer.load(fromByteOffset: 40, as: UInt64.self)
-        let filesize = cmdPointer.load(fromByteOffset: 48, as: UInt64.self)
-        let maxprot = cmdPointer.load(fromByteOffset: 56, as: UInt32.self)
-        let initprot = cmdPointer.load(fromByteOffset: 60, as: UInt32.self)
-        let nsects = cmdPointer.load(fromByteOffset: 64, as: UInt32.self)
-        let flags = cmdPointer.load(fromByteOffset: 68, as: UInt32.self)
-
-        return Segment64LoadCommand(cmd: .LC_SEGMENT_64, cmdsize: cmdsize, segname: segname, vmaddr: vmaddr, vmsize: vmsize, fileoff: fileoff, filesize: filesize, maxprot: maxprot, initprot: initprot, nsects: nsects, flags: flags)
-    }
-}
-
-class UUIDLoadCommand: LoadCommand {
-    let uuid: UUID
-
-    init(cmd: LoadCommandType, cmdsize: UInt32, uuid: UUID) {
-        self.uuid = uuid
-        super.init(cmd: cmd, cmdsize: cmdsize)
-    }
-
-    static func fromPointer2(_ cmdPointer: UnsafeRawPointer) throws -> UUIDLoadCommand {
-        let cmdsize = cmdPointer.load(fromByteOffset: 4, as: UInt32.self)
-        let uuid = UUID(uuid: (cmdPointer + 8).assumingMemoryBound(to: uuid_t.self).pointee)
-
-        return UUIDLoadCommand(cmd: .LC_UUID, cmdsize: cmdsize, uuid: uuid)
-    }
-}
-
-class LoadDylibLoadCommand: LoadCommand {
-    let path: String
-    let timestamp: UInt32
-    let currentVersion: UInt32
-    let compatibilityVersion: UInt32
-
-    init(cmd: LoadCommandType, cmdsize: UInt32, path: String) {
-        self.path = path
-        self.timestamp = 0
-        self.currentVersion = 0
-        self.compatibilityVersion = 0
-        super.init(cmd: cmd, cmdsize: cmdsize)
-    }
-
-    static func fromPointer2(_ cmdPointer: UnsafeRawPointer) throws -> LoadDylibLoadCommand {
-        let cmdValue = cmdPointer.load(fromByteOffset: 0, as: UInt32.self)
-        let cmdsize = cmdPointer.load(fromByteOffset: 4, as: UInt32.self)
-        let pathOffset = Int(cmdPointer.load(fromByteOffset: 8, as: UInt32.self))
-        let path = String(cString: (cmdPointer + pathOffset).assumingMemoryBound(to: UInt8.self))
-
-        guard let cmd = LoadCommandType(rawValue: cmdValue) else {
-            throw MachOParseError.unknownLoadCommand(value: cmdValue)
+            // noop
+            result.append(contentsOf: [])
         }
 
-        return LoadDylibLoadCommand(cmd: cmd, cmdsize: cmdsize, path: path)
+        return result
+    }
+}
+
+extension LoadDyLibLoadCommand {
+    func pathString() -> String {
+        let pointer = UnsafePointer<UInt8>(self.rawPointer.assumingMemoryBound(to: UInt8.self) + Int(self.dylib.stringOffset))
+        return String(cString: pointer)
+    }
+}
+
+extension LoadDyLinkerLoadCommand {
+    func pathString() -> String {
+        let pointer = UnsafePointer<UInt8>(self.rawPointer.assumingMemoryBound(to: UInt8.self) + Int(self.stringOffset))
+        return String(cString: pointer)
     }
 }

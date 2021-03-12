@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19434A2E25F562AD008652A3 /* Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19434A2D25F562AD008652A3 /* Parse.swift */; };
+		19434A3325F5956E008652A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19434A3225F5956E008652A3 /* Constants.swift */; };
 		19D3470225EAA0E900D6EB99 /* Mach_O_InspectorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D3470125EAA0E900D6EB99 /* Mach_O_InspectorApp.swift */; };
 		19D3470425EAA0E900D6EB99 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D3470325EAA0E900D6EB99 /* ContentView.swift */; };
 		19D3470625EAA0EB00D6EB99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19D3470525EAA0EB00D6EB99 /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19434A2D25F562AD008652A3 /* Parse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parse.swift; sourceTree = "<group>"; };
+		19434A3225F5956E008652A3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		19D346FE25EAA0E900D6EB99 /* Mach-O Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mach-O Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		19D3470125EAA0E900D6EB99 /* Mach_O_InspectorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mach_O_InspectorApp.swift; sourceTree = "<group>"; };
 		19D3470325EAA0E900D6EB99 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				19D3473125EAA11500D6EB99 /* Mach-O.swift */,
+				19434A2D25F562AD008652A3 /* Parse.swift */,
+				19434A3225F5956E008652A3 /* Constants.swift */,
 			);
 			path = Parse;
 			sourceTree = "<group>";
@@ -289,9 +295,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				19D3470425EAA0E900D6EB99 /* ContentView.swift in Sources */,
+				19434A2E25F562AD008652A3 /* Parse.swift in Sources */,
 				19D3470225EAA0E900D6EB99 /* Mach_O_InspectorApp.swift in Sources */,
 				19D3473E25EAADC400D6EB99 /* mach-o.c in Sources */,
 				19D3473225EAA11500D6EB99 /* Mach-O.swift in Sources */,
+				19434A3325F5956E008652A3 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

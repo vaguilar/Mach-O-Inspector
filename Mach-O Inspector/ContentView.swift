@@ -24,11 +24,11 @@ struct ContentView: View {
         List {
             ForEach(self.machoList) { macho in
                 Section(header: Text(String(describing: macho.cpu)), content: {
-                    ForEach(macho.cmds) { lc in
+                    ForEach(0..<macho.loadCommands.count) { i in
                         NavigationLink(
-                            destination: LoadCommandView(lc: lc),
+                            destination: LoadCommandView(loadCommand: macho.loadCommands[i], displayList: macho.displayLists[i]),
                             label: {
-                                Text(String(describing: lc.cmd))
+                                Text(String(describing: LoadCommandType(rawValue: macho.loadCommands[i].command)!))
                             })
                     }
                 })
@@ -39,27 +39,30 @@ struct ContentView: View {
 }
 
 struct LoadCommandView: View {
-    let lc: LoadCommand
+    let loadCommand: LoadCommand
+    let displayList: [(String, String)]
 
     var body: some View {
-        VStack {
-            Text(String(describing: lc.cmd))
-            Text(String(describing: lc.cmdsize) + " bytes")
-            if let lc = lc as? Segment64LoadCommand {
-                Text(String(describing: lc.segname))
-                Text("VM Address " + String(describing: lc.vmaddr))
-                Text("VM Size " + String(describing: lc.vmsize))
-
-            } else if let lc = lc as? UUIDLoadCommand {
-                Text(String(describing: lc.uuid))
-
-            } else if let lc = lc as? LoadDylibLoadCommand {
-                Text(String(describing: lc.path))
-
-            } else {
-                //
+        HStack {
+            VStack {
+                Text("")
+                ForEach(0..<displayList.count) { i in
+                    Text(displayList[i].0)
+                        .bold()
+                        .padding(.horizontal)
+                        .padding(.vertical, 2)
+                }
+            }
+            VStack {
+                Text("")
+                ForEach(0..<displayList.count) { i in
+                    Text(displayList[i].1)
+                        .padding(.horizontal)
+                        .padding(.vertical, 2)
+                }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
 

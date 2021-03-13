@@ -21,10 +21,10 @@ class FatMachO {
         if isFat {
             let fatHeader = FatHeader.parse(fatMachOPointer)
 
-            for i in 0..<Int(fatHeader.archCount) {
-                let fatArchPointer = fatMachOPointer + MemoryLayout<FatHeader>.stride + (MemoryLayout<FatArch>.stride * i)
+            for i in 0..<Int(fatHeader.archCount.bigEndian) {
+                let fatArchPointer = fatMachOPointer + 8 + (20 * i) // 8 = FatHeader size, 20 = FatArch Size
                 let fatArch = FatArch.parse(fatArchPointer)
-                let machoPointer = fatMachOPointer + Int(fatArch.offset)
+                let machoPointer = fatMachOPointer + Int(fatArch.offset.bigEndian)
                 let machO = try MachO.fromPointer(machoPointer)
                 machoList.append(machO)
             }

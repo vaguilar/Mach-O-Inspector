@@ -8,21 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var machoList: [MachO] = []
-
-    init() {
-        let url = Bundle.main.executableURL!
-        do {
-            let fatMacho = try FatMachO.fromURL(url)
-            self._machoList = State(initialValue: fatMacho.machoList)
-        } catch {
-            print(error)
-        }
-    }
+    @EnvironmentObject var env: MachOInspectorEnvironment
 
     var body: some View {
         List {
-            ForEach(self.machoList) { macho in
+            ForEach(self.env.machoList) { macho in
                 Section(header: Text(String(describing: macho.cpu)), content: {
                     ForEach(0..<macho.loadCommands.count) { i in
                         NavigationLink(
